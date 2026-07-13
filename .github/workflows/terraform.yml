@@ -23,15 +23,15 @@ jobs:
   static-validation:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@v7.0.0
+      - uses: hashicorp/setup-terraform@v4.0.1
         with:
           terraform_version: 1.15.8
           terraform_wrapper: false
       - uses: terraform-linters/setup-tflint@v6.3.0
         with:
           tflint_version: v0.63.1
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.12"
           cache: pip

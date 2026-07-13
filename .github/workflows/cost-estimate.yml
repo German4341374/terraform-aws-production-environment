@@ -16,7 +16,7 @@ jobs:
     env:
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.0
       - name: Explain missing optional key
         if: env.INFRACOST_API_KEY == ''
         run: echo "Optional estimate skipped; configure INFRACOST_API_KEY to use the open-source Infracost CLI."
@@ -28,7 +28,7 @@ jobs:
           infracost breakdown --path .
           --terraform-var-file environments/production.tfvars.example
           --format json --out-file infracost.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7.0.1
         if: env.INFRACOST_API_KEY != ''
         with:
           name: optional-infracost-${{ github.run_id }}
