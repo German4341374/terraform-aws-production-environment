@@ -16,7 +16,7 @@ jobs:
     env:
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Explain missing optional key
         if: env.INFRACOST_API_KEY == ''
         run: echo "Optional estimate skipped; configure INFRACOST_API_KEY to use the open-source Infracost CLI."
