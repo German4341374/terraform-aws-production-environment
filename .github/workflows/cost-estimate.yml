@@ -28,7 +28,7 @@ jobs:
           infracost breakdown --path .
           --terraform-var-file environments/production.tfvars.example
           --format json --out-file infracost.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: env.INFRACOST_API_KEY != ''
         with:
           name: optional-infracost-${{ github.run_id }}
