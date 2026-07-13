@@ -1,0 +1,10 @@
+# WARNING: enabling these resources creates ALB, NAT Gateway, Fargate, CloudWatch, and data-transfer charges.
+environment         = "production"
+aws_region          = "us-east-1"
+availability_zones  = ["us-east-1a", "us-east-1b"]
+vpc_cidr             = "10.42.0.0/16"
+enable_runtime       = true
+enable_nat_gateways  = true
+certificate_arn      = "arn:aws:acm:us-east-1:111122223333:certificate/00000000-0000-0000-0000-000000000000"
+desired_count        = 2
+storage_force_destroy = false

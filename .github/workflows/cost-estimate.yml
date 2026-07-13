@@ -1,0 +1,36 @@
+name: Optional Cost Estimate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: infracost-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  estimate:
+    runs-on: ubuntu-24.04
+    env:
+      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Explain missing optional key
+        if: env.INFRACOST_API_KEY == ''
+        run: echo "Optional estimate skipped; configure INFRACOST_API_KEY to use the open-source Infracost CLI."
+      - uses: infracost/actions/setup@v3
+        if: env.INFRACOST_API_KEY != ''
+      - name: Estimate production example without applying
+        if: env.INFRACOST_API_KEY != ''
+        run: >-
+          infracost breakdown --path .
+          --terraform-var-file environments/production.tfvars.example
+          --format json --out-file infracost.json
+      - uses: actions/upload-artifact@v4
+        if: env.INFRACOST_API_KEY != ''
+        with:
+          name: optional-infracost-${{ github.run_id }}
+          path: infracost.json
+          retention-days: 7

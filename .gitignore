@@ -1,0 +1,15 @@
+.terraform/
+.tools/
+*.tfstate
+*.tfstate.*
+*.tfplan
+production-plan.txt
+crash*.log
+*.auto.tfvars
+terraform.tfvars
+backend.hcl
+.env
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

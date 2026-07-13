@@ -1,0 +1,51 @@
+name: Terraform Static CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: terraform-static-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+  AWS_EC2_METADATA_DISABLED: "true"
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.8
+          terraform_wrapper: false
+      - uses: terraform-linters/setup-tflint@v6.3.0
+        with:
+          tflint_version: v0.63.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - run: python -m pip install --disable-pip-version-check -r requirements-ci.txt
+      - name: Initialize without remote state or AWS access
+        run: terraform init -backend=false
+      - run: terraform fmt -check -recursive -diff
+      - run: terraform validate
+      - name: Run mocked plans without AWS credentials
+        run: terraform test
+      - name: Run TFLint
+        run: |
+          tflint --init
+          tflint --recursive
+      - name: Run Checkov
+        run: checkov --directory . --framework terraform --quiet --compact

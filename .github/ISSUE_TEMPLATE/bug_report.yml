@@ -1,0 +1,16 @@
+name: Bug report
+description: Report sanitized static-validation behavior.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: report
+    attributes: { label: Expected behavior, actual behavior, and reproduction }
+    validations: { required: true }
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I removed keys, state, plans, account IDs, real ARNs, and personal data.
+          required: true

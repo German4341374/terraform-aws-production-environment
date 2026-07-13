@@ -1,0 +1,6 @@
+# Fake remote-state configuration. Create and secure the bucket before use.
+bucket       = "example-terraform-state-do-not-use"
+key          = "portfolio/production/terraform.tfstate"
+region       = "us-east-1"
+encrypt      = true
+use_lockfile = true
