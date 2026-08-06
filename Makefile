@@ -7,7 +7,7 @@ fmt:
 lint:
 	terraform fmt -check -recursive -diff
 	tflint --recursive
-	checkov --directory . --framework terraform --quiet --compact
+	trivy config --severity HIGH,CRITICAL --exit-code 1 --skip-dirs .terraform .
 validate:
 	terraform validate
 test:

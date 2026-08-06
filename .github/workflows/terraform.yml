@@ -23,20 +23,14 @@ jobs:
   static-validation:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v7.0.0
-      - uses: hashicorp/setup-terraform@v4.0.1
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
         with:
           terraform_version: 1.15.8
           terraform_wrapper: false
-      - uses: terraform-linters/setup-tflint@v6.3.0
+      - uses: terraform-linters/setup-tflint@6e1e0642c0289bd619021bf6b34e3c08ed1e005a # v6.3.0
         with:
           tflint_version: v0.63.1
-      - uses: actions/setup-python@v6.3.0
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements-ci.txt
-      - run: python -m pip install --disable-pip-version-check -r requirements-ci.txt
       - name: Initialize without remote state or AWS access
         run: terraform init -backend=false
       - run: terraform fmt -check -recursive -diff
@@ -47,5 +41,12 @@ jobs:
         run: |
           tflint --init
           tflint --recursive
-      - name: Run Checkov
-        run: checkov --directory . --framework terraform --quiet --compact
+      - name: Run Trivy Terraform misconfiguration scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          version: v0.72.0
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          hide-progress: true

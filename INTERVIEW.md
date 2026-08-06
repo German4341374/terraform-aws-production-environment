@@ -64,9 +64,9 @@ The state bucket must exist before Terraform initializes this configuration. Kee
 
 Terraform test uses `mock_provider "aws"`, so configuration and assertions are evaluated against provider schemas without calling AWS APIs.
 
-## 17. What do TFLint and Checkov add?
+## 17. What do TFLint and Trivy Config add?
 
-TFLint catches Terraform-specific quality and provider issues. Checkov performs static security and compliance checks. They complement, rather than replace, `terraform validate`.
+TFLint catches Terraform-specific quality and provider issues. Trivy Config performs static security and compliance checks. They complement, rather than replace, `terraform validate`.
 
 ## 18. Why pin tool and provider versions?
 

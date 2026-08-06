@@ -26,7 +26,7 @@ make lint
 make test
 ```
 
-Explain that `terraform init -backend=false` avoids remote state and that Terraform test uses a mocked AWS provider. The GitHub Actions workflow repeats formatting, validation, TFLint, Checkov, and tests without AWS credentials.
+Explain that `terraform init -backend=false` avoids remote state and that Terraform test uses a mocked AWS provider. The GitHub Actions workflow repeats formatting, validation, TFLint, Trivy Config, and tests without AWS credentials.
 
 ## 2:30-3:30 — Demonstrate safety controls
 

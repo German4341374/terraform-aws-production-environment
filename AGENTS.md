@@ -5,5 +5,5 @@
 - Preserve mocked no-account tests and `terraform init -backend=false` static validation.
 - Never add automatic apply to GitHub Actions.
 - Keep IAM policies resource-scoped and document unavoidable wildcard permissions.
-- Run fmt, validate, tests, TFLint, and Checkov; review cost and destroy impact.
+- Run fmt, validate, tests, TFLint, and Trivy Config; review cost and destroy impact.
 - Update the threat model and state/destroy runbooks when architecture changes.

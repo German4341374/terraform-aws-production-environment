@@ -5,7 +5,7 @@ locals {
 resource "aws_cloudwatch_log_group" "app" {
   count = var.enabled ? 1 : 0
 
-  #checkov:skip=CKV_AWS_158:AWS-managed encryption avoids a paid KMS key in this small environment.
+  # AWS-managed encryption avoids a paid KMS key in this small environment.
 
   name              = "/ecs/${var.name}"
   retention_in_days = var.log_retention_days
@@ -90,7 +90,7 @@ resource "aws_security_group" "task" {
 resource "aws_vpc_security_group_ingress_rule" "task_from_alb" {
   count = var.enabled ? 1 : 0
 
-  #checkov:skip=CKV_AWS_260:Ingress is limited to the ALB security group, not the public internet.
+  # Ingress is limited to the ALB security group, not the public internet.
 
   security_group_id            = aws_security_group.task[0].id
   description                  = "Application traffic from ALB"
@@ -125,8 +125,8 @@ resource "aws_vpc_security_group_egress_rule" "task_https" {
 resource "aws_lb" "this" {
   count = var.enabled ? 1 : 0
 
-  #checkov:skip=CKV_AWS_91:ALB logging requires a log archive bucket and is documented as a production extension.
-  #checkov:skip=CKV2_AWS_28:AWS WAF creates recurring cost and is an optional internet-edge hardening control.
+  # ALB logging requires a log archive bucket and is documented as a production extension.
+  # AWS WAF creates recurring cost and is an optional internet-edge hardening control.
 
   name                       = substr("${var.name}-alb", 0, 32)
   internal                   = false

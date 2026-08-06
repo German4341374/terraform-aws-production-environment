@@ -41,7 +41,7 @@ flowchart TB
 - VPC, two public/private subnet pairs, route tables, IGW, optional HA NAT
 - HTTPS ALB, ECS Fargate, Application Auto Scaling, security groups
 - AES-256 encrypted/versioned S3 and CloudWatch logs
-- Terraform tests with mocked AWS, TFLint 0.63.1, Checkov 3.3.8
+- Terraform tests with mocked AWS, TFLint 0.63.1, Trivy Config 0.72.0
 - Optional open-source Infracost workflow
 
 ## Architecture choices and trade-offs
@@ -55,7 +55,7 @@ flowchart TB
 
 ## Prerequisites
 
-For safe local validation on Linux or WSL2: Terraform 1.8+, TFLint, Python 3.12, Checkov, Bash,
+For safe local validation on Linux or WSL2: Terraform 1.8+, TFLint, Trivy, Bash,
 and Make. AWS CLI and credentials are not required. Real deployment additionally requires your own
 AWS account, short-lived authenticated session, ACM certificate, permissions, and budget controls.
 
@@ -111,7 +111,7 @@ CI should use short-lived federation, not access keys.
 ## CI and cost estimation
 
 Static CI has `contents: read`, no AWS credentials, no plan against an account, and no apply. It runs
-fmt, validate, mocked tests, TFLint, and Checkov. The optional manual Infracost workflow runs only when
+fmt, validate, mocked tests, TFLint, and Trivy Config. The optional manual Infracost workflow runs only when
 an `INFRACOST_API_KEY` repository secret is configured; otherwise it exits safely with an explanation.
 Infracost estimates are guidance, not invoices.
 
@@ -140,7 +140,7 @@ See `docs/threat-model.md` for threats, controls, residual risks, and trust boun
 
 - No real AWS plan/apply was run; static mock validation cannot prove quotas or account policies.
 - No WAF, Shield Advanced, Route 53, database, secrets service, backups, or cross-region recovery.
-- ALB access logging and WAF are documented extensions; related Checkov exceptions include precise cost/trade-off reasons.
+- ALB access logging and WAF are documented extensions; related scanner trade-offs are documented beside the resources.
 - Example account IDs and ARNs are fake.
 
 ## Future improvements

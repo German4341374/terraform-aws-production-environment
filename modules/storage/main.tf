@@ -1,8 +1,7 @@
 resource "aws_s3_bucket" "this" {
-  #checkov:skip=CKV2_AWS_62:Event notifications require a workload-specific destination that this foundation does not own.
-  #checkov:skip=CKV_AWS_18:Access logging requires a separate log archive bucket and is documented as a future extension.
-  #checkov:skip=CKV_AWS_144:Cross-region replication adds storage and transfer cost beyond this environment's recovery objective.
-  #checkov:skip=CKV_AWS_145:SSE-S3 encrypts at rest without a paid KMS key; KMS is an optional stricter control.
+  # Event notifications require a workload-specific destination that this foundation does not own.
+  # Access logging requires a separate log archive bucket and is documented as a future extension.
+  # Cross-region replication adds storage and transfer cost beyond this environment's recovery objective.
   bucket_prefix = "${var.name}-encrypted-"
   force_destroy = var.force_destroy
   tags          = merge(var.tags, { Name = "${var.name}-encrypted-storage" })
@@ -17,6 +16,7 @@ resource "aws_s3_bucket_public_access_block" "this" {
   restrict_public_buckets = true
 }
 
+#trivy:ignore:AWS-0132 -- SSE-S3 encrypts at rest without a paid KMS key; KMS is an optional stricter control.
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   bucket = aws_s3_bucket.this.id
   rule {

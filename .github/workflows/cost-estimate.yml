@@ -16,11 +16,11 @@ jobs:
     env:
       INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Explain missing optional key
         if: env.INFRACOST_API_KEY == ''
         run: echo "Optional estimate skipped; configure INFRACOST_API_KEY to use the open-source Infracost CLI."
-      - uses: infracost/actions/setup@v4
+      - uses: infracost/actions/setup@fb736a8f219195d6efdca58682069b16fe1bc280 # v4
         if: env.INFRACOST_API_KEY != ''
       - name: Estimate production example without applying
         if: env.INFRACOST_API_KEY != ''
@@ -28,7 +28,7 @@ jobs:
           infracost breakdown --path .
           --terraform-var-file environments/production.tfvars.example
           --format json --out-file infracost.json
-      - uses: actions/upload-artifact@v7.0.1
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: env.INFRACOST_API_KEY != ''
         with:
           name: optional-infracost-${{ github.run_id }}
