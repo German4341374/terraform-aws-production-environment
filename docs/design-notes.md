@@ -1,4 +1,4 @@
-# Interview Questions and Answers
+# Design notes
 
 ## 1. Why use two availability zones?
 

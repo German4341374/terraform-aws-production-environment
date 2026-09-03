@@ -143,12 +143,12 @@ See `docs/threat-model.md` for threats, controls, residual risks, and trust boun
 - ALB access logging and WAF are documented extensions; related scanner trade-offs are documented beside the resources.
 - Example account IDs and ARNs are fake.
 
-## Future improvements
+## Next infrastructure exercises
 
 Add WAF, VPC endpoints, KMS customer keys, ALB logs, private ECR, Secrets Manager, database module,
 AWS Config, GuardDuty, backup policies, signed images, and OIDC-based deployment workflows with approvals.
 
-## Interview talking points
+## Design questions
 
 - Public ALB/private task flow and SG referencing.
 - HA versus NAT cost and VPC endpoint alternatives.
@@ -156,7 +156,7 @@ AWS Config, GuardDuty, backup policies, signed images, and OIDC-based deployment
 - Why state locking/versioning and short-lived identity matter.
 - Why static CI never implies deployment safety.
 
-See `DEMO.md`, `INTERVIEW.md`, ADRs, runbooks, and the threat model.
+See `DEMO.md`, `docs/design-notes.md`, ADRs, runbooks, and the threat model.
 
 ## License
 
