@@ -1,4 +1,4 @@
-# Five-Minute Portfolio Demonstration
+# Five-Minute Walkthrough
 
 This script demonstrates the project's design without an AWS account. Keep the repository and a terminal open before the meeting.
 
