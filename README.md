@@ -2,8 +2,12 @@
 
 [![Terraform Static CI](https://github.com/German4341374/terraform-aws-production-environment/actions/workflows/terraform.yml/badge.svg)](https://github.com/German4341374/terraform-aws-production-environment/actions/workflows/terraform.yml)
 
-Secure, modular Terraform representing a small AWS production environment. Static validation,
-mocked plans, linting, and security scanning require no AWS account.
+Terraform files for an AWS app setup with public and private subnets, a load balancer,
+containers, and encrypted storage. You can read the plans, run the tests with a mocked
+provider, and check the configuration without an AWS account.
+
+The runtime resources are turned off by default. Deploying the real setup costs money,
+so review the plan and cost warning before enabling them.
 
 > **Cost warning:** A real apply can create charged NAT Gateways, an Application Load Balancer,
 > Fargate tasks, CloudWatch logs, S3 storage, and data transfer. Runtime and NAT resources are
